@@ -33,13 +33,16 @@ describe('Recipe-router-Tests', function() {
       .get('/recipes')
       .then(function (res) {
         expect(res).to.have.status(200);
-        expect(res.body).to.be.json;
-        // expect(res.body).to.be.a('array');
-        // expect(res.body.length).to.be.at.least(1);
+        expect(res).to.be.json;
+        expect(res.body).to.be.an('array');
+        expect(res.body.length).to.be.at.least(1);
       });
   });
 
-
+  it('Should add an item on Post', function () {
+    const newItem = {name:'coffee', ingredients:[]};
+    return
+  })
 
 
 
