@@ -15,9 +15,6 @@ const expect = chai.expect;
 // see: https://github.com/chaijs/chai-http
 chai.use(chaiHttp);
 
-
-
-
 describe('Recipe-router-Tests', function() {
   before(function () {
     return runServer();
@@ -51,6 +48,36 @@ describe('Recipe-router-Tests', function() {
       });
   });
 
+  //delete
+
+  it('Should remove an item on DELETE', function() {
+    return chai.request(app)
+      .get('/recipes/')
+      .then(function(res) {
+        return chai.request(app)
+          .delete(`/recipes/${res.body[0].id}`);
+      })
+      .then(function(res) {
+        expect(res).to.have.status(204);
+      });
+  });
+
+  //put
+
+  it('Should update an recipe on PUT', function() {
+    const updateData = {name: 'Luke', ingredients: ['Force', 'lightsaber'] }
+    return chai.request(app)
+      .get('/recipes/')
+      .then(function(res) {
+        updateData.id = res.body[0].id;
+        return chai.request(app)
+          .put(`/recipes/${updateData.id}`)
+          .send(updateData);
+      })
+      .then(function(res) {
+        expect(res).to.have.status(204);
+      }); 
+  });
 
 
 
