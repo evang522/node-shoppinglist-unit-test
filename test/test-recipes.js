@@ -40,12 +40,14 @@ describe('Recipe-router-Tests', function() {
   });
 
   it('Should add an item on Post', function () {
-    const newItem = {name:'coffee', ingredients:[]};
+    const newItem = {name:'coffee', ingredients:['beans', 'liquid', 'love']};
     return chai.request(app)
-      .get('/recipes')
+      .post('/recipes')
+      .send(newItem)
       .then(function (res) {
         expect(res).to.have.status(201);
-        expect(res.body).to.be.json;
+        expect(res).to.be.json;
+        expect(res.body).to.include.keys('id', 'name', 'ingredients');
       });
   });
 
