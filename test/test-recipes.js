@@ -41,8 +41,13 @@ describe('Recipe-router-Tests', function() {
 
   it('Should add an item on Post', function () {
     const newItem = {name:'coffee', ingredients:[]};
-    return
-  })
+    return chai.request(app)
+      .get('/recipes')
+      .then(function (res) {
+        expect(res).to.have.status(201);
+        expect(res.body).to.be.json;
+      });
+  });
 
 
 
